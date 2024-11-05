@@ -8,7 +8,7 @@ interface ExportButtonProps {
 const ExportButton: React.FC<ExportButtonProps> = ({ onClick }) => {
   return (
     <button onClick={onClick}>
-      Export to JSON!
+      Export
     </button>
   );
 };
