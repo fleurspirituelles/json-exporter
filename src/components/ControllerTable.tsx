@@ -21,9 +21,9 @@ const ControllerTable = forwardRef((props, ref) => {
   }));
 
   const columns: ColumnDefinition[] = [
-    { title: 'Name', field: 'name', editor: 'input' },
-    { title: 'Address', field: 'address', editor: 'input' },
-    { title: 'Slot', field: 'slot', editor: 'number' },
+    { title: 'Nome', field: 'name', editor: 'input' },
+    { title: 'PLC Address', field: 'address', editor: 'input' },
+    { title: 'PLC Slot', field: 'slot', editor: 'number' },
     { title: 'Timeout', field: 'timeout', editor: 'number' },
   ];
 
