@@ -1,17 +1,14 @@
 import React from 'react';
 import './App.css';
-import ExportButton from './components/ExportButton';
+import ControllerTable from './components/Tables/ControllerTable';
 
 const App: React.FC = () => {
-  const handleClick = () => {
-    console.log('Exporting to JSON.');
-  };
-
   return (
     <div className="App">
-      <ExportButton onClick={handleClick} />
+      <h1>Lista de Controladoras</h1>
+      <ControllerTable />
     </div>
   );
-}
+};
 
 export default App;
