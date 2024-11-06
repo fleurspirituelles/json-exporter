@@ -32,6 +32,7 @@ const ControllerTable = forwardRef((props, ref) => {
       data={tableData}
       columns={columns}
       layout="fitColumns"
+      options={{ resizableColumnFit:true }}
       events={{
         dataChanged: (newData: FormData[]) => setTableData(newData),
       }}
