@@ -10,7 +10,7 @@ interface FormData {
   timeout: number;
 }
 
-const DataTable: React.FC = () => {
+const ControllerTable: React.FC = () => {
   const [tableData, setTableData] = useState<FormData[]>([]);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
@@ -75,4 +75,4 @@ const DataTable: React.FC = () => {
   );
 };
 
-export default DataTable;
+export default ControllerTable;
