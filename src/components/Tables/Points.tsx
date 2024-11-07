@@ -2,6 +2,7 @@ import React, { useImperativeHandle, forwardRef, useState } from 'react';
 import { ReactTabulator, ColumnDefinition } from 'react-tabulator';
 import 'react-tabulator/lib/styles.css';
 import 'react-tabulator/css/tabulator.min.css';
+import './TableButtons.css';
 
 interface PointsData {
   plcName: string;
@@ -16,23 +17,10 @@ interface PointsData {
   EUHigh: number | null;
 }
 
-const initialPointsData: PointsData[] = [
-  {
-    plcName: '',
-    plcTag: '',
-    pointName: '',
-    description: '',
-    decimals: null,
-    unit: '',
-    rawLow: null,
-    rawHigh: null,
-    EULow: null,
-    EUHigh: null,
-  },
-];
-
 const Points = forwardRef((props, ref) => {
-  const [tableData, setTableData] = useState<PointsData[]>(initialPointsData);
+  const [tableData, setTableData] = useState<PointsData[]>([
+    { plcName: '', plcTag: '', pointName: '', description: '', decimals: null, unit: '', rawLow: null, rawHigh: null, EULow: null, EUHigh: null },
+  ]);
 
   useImperativeHandle(ref, () => ({
     getData: () => tableData,
@@ -56,21 +44,7 @@ const Points = forwardRef((props, ref) => {
 
   const addRow = () => {
     if (tableData.length < 500) {
-      setTableData([
-        ...tableData,
-        {
-          plcName: '',
-          plcTag: '',
-          pointName: '',
-          description: '',
-          decimals: null,
-          unit: '',
-          rawLow: null,
-          rawHigh: null,
-          EULow: null,
-          EUHigh: null,
-        },
-      ]);
+      setTableData([...tableData, { plcName: '', plcTag: '', pointName: '', description: '', decimals: null, unit: '', rawLow: null, rawHigh: null, EULow: null, EUHigh: null }]);
     } else {
       alert('O limite máximo de 500 linhas foi atingido.');
     }
@@ -87,7 +61,9 @@ const Points = forwardRef((props, ref) => {
           dataChanged: (newData: PointsData[]) => setTableData(newData),
         }}
       />
-      <button onClick={addRow} style={{ marginTop: '10px' }}>Adicionar Linha</button>
+      <div className="button-container">
+        <button className="add-row-button" onClick={addRow}>+</button>
+      </div>
     </div>
   );
 });

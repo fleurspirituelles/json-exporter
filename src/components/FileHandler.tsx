@@ -1,5 +1,5 @@
-import React from 'react';
-import { validateAllData } from '../utils/ValidationUtils';
+import React, { useRef } from 'react';
+import './FileHandler.css';
 
 interface FileHandlerProps {
   onImport: (data: any, error: string | null) => void;
@@ -7,7 +7,9 @@ interface FileHandlerProps {
 }
 
 const FileHandler: React.FC<FileHandlerProps> = ({ onImport, onExport }) => {
-  const handleImport = (event: React.ChangeEvent<HTMLInputElement>) => {
+  const fileInputRef = useRef<HTMLInputElement>(null);
+
+  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     if (!file) return;
 
@@ -15,13 +17,6 @@ const FileHandler: React.FC<FileHandlerProps> = ({ onImport, onExport }) => {
     reader.onload = (e) => {
       try {
         const jsonData = JSON.parse(e.target?.result as string);
-
-        const errorMessage = validateAllData(jsonData);
-        if (errorMessage) {
-          onImport(null, errorMessage);
-          return;
-        }
-
         onImport(jsonData, null);
       } catch (error) {
         onImport(null, 'Arquivo JSON inválido.');
@@ -30,15 +25,25 @@ const FileHandler: React.FC<FileHandlerProps> = ({ onImport, onExport }) => {
     reader.readAsText(file);
   };
 
+  const triggerFileInput = () => {
+    fileInputRef.current?.click();
+  };
+
   return (
-    <div>
-      <button onClick={onExport} style={{ marginTop: '10px' }}>Exportar</button>
+    <div className="file-handler">
+      <button className="custom-import-button" onClick={triggerFileInput}>
+        Importar
+      </button>
       <input
         type="file"
         accept="application/json"
-        onChange={handleImport}
-        style={{ marginTop: '10px' }}
+        ref={fileInputRef}
+        onChange={handleFileUpload}
+        style={{ display: 'none' }}
       />
+      <button className="custom-export-button" onClick={onExport}>
+        Exportar
+      </button>
     </div>
   );
 };

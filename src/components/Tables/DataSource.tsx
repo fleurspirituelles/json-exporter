@@ -2,6 +2,7 @@ import React, { useImperativeHandle, forwardRef, useState } from 'react';
 import { ReactTabulator, ColumnDefinition } from 'react-tabulator';
 import 'react-tabulator/lib/styles.css';
 import 'react-tabulator/css/tabulator.min.css';
+import './TableButtons.css';
 
 interface DataSourceData {
   name: string;
@@ -51,7 +52,9 @@ const DataSource = forwardRef((props, ref) => {
           dataChanged: (newData: DataSourceData[]) => setTableData(newData),
         }}
       />
-      <button onClick={addRow} style={{ marginTop: '10px' }}>Adicionar Linha</button>
+      <div className="button-container">
+        <button className="add-row-button" onClick={addRow}>+</button>
+      </div>
     </div>
   );
 });
