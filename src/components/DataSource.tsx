@@ -3,27 +3,27 @@ import { ReactTabulator, ColumnDefinition } from 'react-tabulator';
 import 'react-tabulator/lib/styles.css';
 import 'react-tabulator/css/tabulator.min.css';
 
-interface FormData {
+interface DataSourceData {
   name: string;
-  address: string;
-  slot: number;
+  plcAddress: string;
+  plcSlot: number;
   timeout: number;
 }
 
-const ControllerTable = forwardRef((props, ref) => {
-  const [tableData, setTableData] = useState<FormData[]>([]);
+const DataSource = forwardRef((props, ref) => {
+  const [tableData, setTableData] = useState<DataSourceData[]>([]);
 
   useImperativeHandle(ref, () => ({
     getData: () => tableData,
-    setData: (data: FormData[]) => {
+    setData: (data: DataSourceData[]) => {
       setTableData(data);
     },
   }));
 
   const columns: ColumnDefinition[] = [
-    { title: 'Nome', field: 'name', editor: 'input' },
-    { title: 'PLC Address', field: 'address', editor: 'input' },
-    { title: 'PLC Slot', field: 'slot', editor: 'number' },
+    { title: 'Name', field: 'name', editor: 'input' },
+    { title: 'PLC Address', field: 'plcAddress', editor: 'input' },
+    { title: 'PLC Port', field: 'plcSlot', editor: 'number' },
     { title: 'Timeout', field: 'timeout', editor: 'number' },
   ];
 
@@ -32,12 +32,12 @@ const ControllerTable = forwardRef((props, ref) => {
       data={tableData}
       columns={columns}
       layout="fitColumns"
-      options={{ resizableColumnFit:true }}
+      options={{ resizableColumnFit: true }}
       events={{
-        dataChanged: (newData: FormData[]) => setTableData(newData),
+        dataChanged: (newData: DataSourceData[]) => setTableData(newData),
       }}
     />
   );
 });
 
-export default ControllerTable;
+export default DataSource;
