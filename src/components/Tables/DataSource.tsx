@@ -10,15 +10,8 @@ interface DataSourceData {
   timeout: number;
 }
 
-const initialDataSourceData: DataSourceData[] = Array(5).fill({
-  name: '',
-  plcAddress: '',
-  plcSlot: 0,
-  timeout: 0,
-});
-
 const DataSource = forwardRef((props, ref) => {
-  const [tableData, setTableData] = useState<DataSourceData[]>(initialDataSourceData);
+  const [tableData, setTableData] = useState<DataSourceData[]>([]);
 
   useImperativeHandle(ref, () => ({
     getData: () => tableData,

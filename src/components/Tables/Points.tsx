@@ -16,21 +16,8 @@ interface PointsData {
   EUHigh: number;
 }
 
-const initialPointsData: PointsData[] = Array(5).fill({
-  plcName: '',
-  plcTag: '',
-  pointName: '',
-  description: '',
-  decimals: 0,
-  unit: '',
-  rawLow: 0,
-  rawHigh: 0,
-  EULow: 0,
-  EUHigh: 0,
-});
-
 const Points = forwardRef((props, ref) => {
-  const [tableData, setTableData] = useState<PointsData[]>(initialPointsData);
+  const [tableData, setTableData] = useState<PointsData[]>([]);
 
   useImperativeHandle(ref, () => ({
     getData: () => tableData,
