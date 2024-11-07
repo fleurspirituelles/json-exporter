@@ -4,22 +4,22 @@ export const requiredFields = {
   Points: ['plcName', 'plcTag', 'pointName', 'description', 'decimals']
 };
 
-const validationRules = {
+export const validationRules = {
   General: {
     auth_user: { type: 'ANY' },
     auth_password: { type: 'ANY' },
     api_port: { type: 'WHOLE', min: 1024, max: 65535 }
   },
   DataSource: {
-    name: { type: 'ANY' },
-    plcAddress: { type: 'ANY' },
+    name: { type: 'ANY', unique: true },
+    plcAddress: { type: 'ANY', unique: true },
     plcSlot: { type: 'WHOLE', min: 0, max: 9 },
     timeout: { type: 'WHOLE', min: 0, max: 99999 }
   },
   Points: {
     plcName: { type: 'ANY' },
-    plcTag: { type: 'STRING', regex: /^[a-zA-Z_][a-zA-Z0-9_.-]*$/ },
-    pointName: { type: 'STRING', regex: /^[a-zA-Z_][a-zA-Z0-9_.-]*$/ },
+    plcTag: { type: 'STRING', regex: /^[a-zA-Z_][a-zA-Z0-9_.-]*$/, unique: true }, 
+    pointName: { type: 'STRING', regex: /^[a-zA-Z_][a-zA-Z0-9_.-]*$/, unique: true },
     description: { type: 'ANY' },
     decimals: { type: 'WHOLE', min: 0, max: 6 },
     unit: { type: 'ANY' },
@@ -50,12 +50,26 @@ export const validateData = (data: any, requiredFields: string[], rules: any): b
   });
 };
 
+export const validateUniqueFields = (dataArray: any[], uniqueFields: string[]): boolean => {
+  return uniqueFields.every((field) => {
+    const values = dataArray.map((item) => item[field]);
+    const uniqueValues = new Set(values);
+    return uniqueValues.size === values.length;
+  });
+};
+
 export const validateAllData = (data: any): string | null => {
   const isGeneralValid = data.General?.every((item: any) => validateData(item, requiredFields.General, validationRules.General));
   const isDataSourceValid = data.DataSource?.every((item: any) => validateData(item, requiredFields.DataSource, validationRules.DataSource));
   const isPointsValid = data.Points?.every((item: any) => validateData(item, requiredFields.Points, validationRules.Points));
 
-  return isGeneralValid && isDataSourceValid && isPointsValid
-    ? null
-    : 'Alguns campos obrigatórios estão vazios ou contêm valores inválidos.';
+  if (!isGeneralValid || !isDataSourceValid || !isPointsValid) {
+    return 'Alguns campos obrigatórios estão vazios ou contêm valores inválidos.';
+  }
+
+  if (!validateUniqueFields(data.DataSource, ['name', 'plcAddress']) || !validateUniqueFields(data.Points, ['plcTag', 'pointName'])) {
+    return 'Existem valores duplicados nos campos que devem ser únicos.';
+  }
+
+  return null;
 };
