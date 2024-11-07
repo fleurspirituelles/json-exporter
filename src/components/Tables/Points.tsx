@@ -16,8 +16,21 @@ interface PointsData {
   EUHigh: number;
 }
 
+const initialPointsData: PointsData[] = Array(5).fill({
+  plcName: '',
+  plcTag: '',
+  pointName: '',
+  description: '',
+  decimals: 0,
+  unit: '',
+  rawLow: 0,
+  rawHigh: 0,
+  EULow: 0,
+  EUHigh: 0,
+});
+
 const Points = forwardRef((props, ref) => {
-  const [tableData, setTableData] = useState<PointsData[]>([]);
+  const [tableData, setTableData] = useState<PointsData[]>(initialPointsData);
 
   useImperativeHandle(ref, () => ({
     getData: () => tableData,
@@ -39,16 +52,38 @@ const Points = forwardRef((props, ref) => {
     { title: 'EU High', field: 'EUHigh', editor: 'number' },
   ];
 
+  const addRow = () => {
+    if (tableData.length < 500) {
+      setTableData([...tableData, {
+        plcName: '',
+        plcTag: '',
+        pointName: '',
+        description: '',
+        decimals: 0,
+        unit: '',
+        rawLow: 0,
+        rawHigh: 0,
+        EULow: 0,
+        EUHigh: 0,
+      }]);
+    } else {
+      alert('O limite máximo de 500 linhas foi atingido.');
+    }
+  };
+
   return (
-    <ReactTabulator
-      data={tableData}
-      columns={columns}
-      layout="fitColumns"
-      options={{ resizableColumnFit: true }}
-      events={{
-        dataChanged: (newData: PointsData[]) => setTableData(newData),
-      }}
-    />
+    <div>
+      <ReactTabulator
+        data={tableData}
+        columns={columns}
+        layout="fitColumns"
+        options={{ resizableColumnFit: true }}
+        events={{
+          dataChanged: (newData: PointsData[]) => setTableData(newData),
+        }}
+      />
+      <button onClick={addRow} style={{ marginTop: '10px' }}>Adicionar Linha</button>
+    </div>
   );
 });
 
