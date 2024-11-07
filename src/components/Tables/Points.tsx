@@ -8,16 +8,31 @@ interface PointsData {
   plcTag: string;
   pointName: string;
   description: string;
-  decimals: number;
+  decimals: number | null;
   unit: string;
-  rawLow: number;
-  rawHigh: number;
-  EULow: number;
-  EUHigh: number;
+  rawLow: number | null;
+  rawHigh: number | null;
+  EULow: number | null;
+  EUHigh: number | null;
 }
 
+const initialPointsData: PointsData[] = [
+  {
+    plcName: '',
+    plcTag: '',
+    pointName: '',
+    description: '',
+    decimals: null,
+    unit: '',
+    rawLow: null,
+    rawHigh: null,
+    EULow: null,
+    EUHigh: null,
+  },
+];
+
 const Points = forwardRef((props, ref) => {
-  const [tableData, setTableData] = useState<PointsData[]>([]);
+  const [tableData, setTableData] = useState<PointsData[]>(initialPointsData);
 
   useImperativeHandle(ref, () => ({
     getData: () => tableData,
@@ -41,18 +56,21 @@ const Points = forwardRef((props, ref) => {
 
   const addRow = () => {
     if (tableData.length < 500) {
-      setTableData([...tableData, {
-        plcName: '',
-        plcTag: '',
-        pointName: '',
-        description: '',
-        decimals: 0,
-        unit: '',
-        rawLow: 0,
-        rawHigh: 0,
-        EULow: 0,
-        EUHigh: 0,
-      }]);
+      setTableData([
+        ...tableData,
+        {
+          plcName: '',
+          plcTag: '',
+          pointName: '',
+          description: '',
+          decimals: null,
+          unit: '',
+          rawLow: null,
+          rawHigh: null,
+          EULow: null,
+          EUHigh: null,
+        },
+      ]);
     } else {
       alert('O limite máximo de 500 linhas foi atingido.');
     }

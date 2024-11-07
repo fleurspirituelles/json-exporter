@@ -6,12 +6,14 @@ import 'react-tabulator/css/tabulator.min.css';
 interface DataSourceData {
   name: string;
   plcAddress: string;
-  plcSlot: number;
-  timeout: number;
+  plcSlot: number | null;
+  timeout: number | null;
 }
 
 const DataSource = forwardRef((props, ref) => {
-  const [tableData, setTableData] = useState<DataSourceData[]>([]);
+  const [tableData, setTableData] = useState<DataSourceData[]>([
+    { name: '', plcAddress: '', plcSlot: null, timeout: null },
+  ]);
 
   useImperativeHandle(ref, () => ({
     getData: () => tableData,
@@ -29,7 +31,10 @@ const DataSource = forwardRef((props, ref) => {
 
   const addRow = () => {
     if (tableData.length < 20) {
-      setTableData([...tableData, { name: '', plcAddress: '', plcSlot: 0, timeout: 0 }]);
+      setTableData([
+        ...tableData,
+        { name: '', plcAddress: '', plcSlot: null, timeout: null },
+      ]);
     } else {
       alert('O limite máximo de 20 linhas foi atingido.');
     }

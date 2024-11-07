@@ -6,12 +6,12 @@ import 'react-tabulator/css/tabulator.min.css';
 interface GeneralData {
   auth_user: string;
   auth_password: string;
-  api_port: number;
+  api_port: number | null;
 }
 
 const General = forwardRef((props, ref) => {
   const [tableData, setTableData] = useState<GeneralData[]>([
-    { auth_user: '', auth_password: '', api_port: 0 }
+    { auth_user: '', auth_password: '', api_port: null },
   ]);
 
   useImperativeHandle(ref, () => ({
