@@ -10,7 +10,9 @@ interface GeneralData {
 }
 
 const General = forwardRef((props, ref) => {
-  const [tableData, setTableData] = useState<GeneralData[]>([]);
+  const [tableData, setTableData] = useState<GeneralData[]>([
+    { auth_user: '', auth_password: '', api_port: 0 }
+  ]);
 
   useImperativeHandle(ref, () => ({
     getData: () => tableData,
