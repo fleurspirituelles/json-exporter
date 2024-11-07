@@ -1,9 +1,11 @@
 import React, { useRef, useState } from 'react';
 import './App.css';
-import DataSource from './components/Tables/DataSource';
-import General from './components/Tables/General';
-import Points from './components/Tables/Points';
+import DataSource from './components/tables/DataSource';
+import General from './components/tables/General';
+import Points from './components/tables/Points';
 import FileHandler from './components/FileHandler';
+import ErrorDisplay from './components/ErrorDisplay';
+import { validateAllData } from './utils/ValidationUtils';
 
 const App: React.FC = () => {
   const dataSourceRef = useRef<any>(null);
@@ -11,37 +13,20 @@ const App: React.FC = () => {
   const pointsRef = useRef<any>(null);
   const [errorMessage, setErrorMessage] = useState<string | null>(null);
 
-  const requiredFields = {
-    DataSource: ['name', 'plcAddress', 'plcSlot', 'timeout'],
-    General: ['auth_user', 'auth_password', 'api_port'],
-    Points: ['plcName', 'plcTag', 'pointName', 'description', 'decimals']
-  };
-
-  const validateData = (data: any, requiredFields: string[]): boolean => {
-    return requiredFields.every(field => data[field] !== '' && data[field] !== null && data[field] !== undefined);
-  };
-
   const handleExport = () => {
-    const generalData = generalRef.current?.getData() || [];
-    const dataSourceData = dataSourceRef.current?.getData() || [];
-    const pointsData = pointsRef.current?.getData() || [];
+    const data = {
+      General: generalRef.current?.getData() || [],
+      DataSource: dataSourceRef.current?.getData() || [],
+      Points: pointsRef.current?.getData() || []
+    };
 
-    const isGeneralValid = generalData.every((item: any) => validateData(item, requiredFields.General));
-    const isDataSourceValid = dataSourceData.every((item: any) => validateData(item, requiredFields.DataSource));
-    const isPointsValid = pointsData.every((item: any) => validateData(item, requiredFields.Points));
-
-    if (!isGeneralValid || !isDataSourceValid || !isPointsValid) {
-      setErrorMessage('Por favor, preencha todos os campos obrigatórios antes de exportar.');
+    const validationError = validateAllData(data);
+    if (validationError) {
+      setErrorMessage(validationError);
       return;
     }
 
     setErrorMessage(null);
-
-    const data = {
-      General: generalData,
-      DataSource: dataSourceData,
-      Points: pointsData
-    };
 
     const jsonString = JSON.stringify(data, null, 2);
     const blob = new Blob([jsonString], { type: 'application/json' });
@@ -82,7 +67,7 @@ const App: React.FC = () => {
       <h1>Pontos</h1>
       <Points ref={pointsRef} />
       <FileHandler onImport={handleImport} onExport={handleExport} />
-      {errorMessage && <div style={{ color: 'red', marginTop: '10px' }}>{errorMessage}</div>}
+      <ErrorDisplay message={errorMessage} />
     </div>
   );
 };
