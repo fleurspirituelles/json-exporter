@@ -1,4 +1,5 @@
 import React from 'react';
+import { validateAllData } from '../utils/ValidationUtils';
 
 interface FileHandlerProps {
   onImport: (data: any, error: string | null) => void;
@@ -15,15 +16,15 @@ const FileHandler: React.FC<FileHandlerProps> = ({ onImport, onExport }) => {
       try {
         const jsonData = JSON.parse(e.target?.result as string);
 
-        const hasRequiredSections = jsonData.General && jsonData.DataSource && jsonData.Points;
-        if (!hasRequiredSections) {
-          onImport(null, 'Campos obrigatórios não encontrados.');
+        const errorMessage = validateAllData(jsonData);
+        if (errorMessage) {
+          onImport(null, errorMessage);
           return;
         }
 
         onImport(jsonData, null);
       } catch (error) {
-        onImport(null, 'Arquivo JSON inválido.');	
+        onImport(null, 'Arquivo JSON inválido.');
       }
     };
     reader.readAsText(file);
@@ -31,9 +32,7 @@ const FileHandler: React.FC<FileHandlerProps> = ({ onImport, onExport }) => {
 
   return (
     <div>
-      <button onClick={onExport} style={{ marginTop: '10px' }}>
-        Exportar
-      </button>
+      <button onClick={onExport} style={{ marginTop: '10px' }}>Exportar</button>
       <input
         type="file"
         accept="application/json"
