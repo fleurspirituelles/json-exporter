@@ -1,7 +1,7 @@
 import React from 'react';
 
 interface FileHandlerProps {
-  onImport: (data: any) => void;
+  onImport: (data: any, error: string | null) => void;
   onExport: () => void;
 }
 
@@ -14,9 +14,16 @@ const FileHandler: React.FC<FileHandlerProps> = ({ onImport, onExport }) => {
     reader.onload = (e) => {
       try {
         const jsonData = JSON.parse(e.target?.result as string);
-        onImport(jsonData);
+
+        const hasRequiredSections = jsonData.General && jsonData.DataSource && jsonData.Points;
+        if (!hasRequiredSections) {
+          onImport(null, 'Campos obrigatórios não encontrados.');
+          return;
+        }
+
+        onImport(jsonData, null);
       } catch (error) {
-        console.error('Arquivo JSON inválido!');
+        onImport(null, 'Arquivo JSON inválido.');	
       }
     };
     reader.readAsText(file);

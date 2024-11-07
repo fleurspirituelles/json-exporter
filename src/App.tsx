@@ -25,7 +25,7 @@ const App: React.FC = () => {
     const generalData = generalRef.current?.getData() || [];
     const dataSourceData = dataSourceRef.current?.getData() || [];
     const pointsData = pointsRef.current?.getData() || [];
-    
+
     const isGeneralValid = generalData.every((item: any) => validateData(item, requiredFields.General));
     const isDataSourceValid = dataSourceData.every((item: any) => validateData(item, requiredFields.DataSource));
     const isPointsValid = pointsData.every((item: any) => validateData(item, requiredFields.Points));
@@ -54,7 +54,14 @@ const App: React.FC = () => {
     URL.revokeObjectURL(url);
   };
 
-  const handleImport = (data: any) => {
+  const handleImport = (data: any, error: string | null) => {
+    if (error) {
+      setErrorMessage(error);
+      return;
+    }
+
+    setErrorMessage(null);
+
     if (data.General) {
       generalRef.current?.setData(data.General);
     }
