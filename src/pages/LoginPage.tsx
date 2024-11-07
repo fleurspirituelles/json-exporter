@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import './LoginPage.css';
 
 interface LoginPageProps {
   onLogin: (userData: { auth_user: string; auth_password: string }) => void;
@@ -15,27 +16,26 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLogin }) => {
 
   return (
     <div>
-      <h2>Login</h2>
       <form onSubmit={handleSubmit}>
         <div>
-          <label>User:</label>
           <input
             type="text"
             value={auth_user}
+            placeholder='Username'
             onChange={(e) => setAuthUser(e.target.value)}
             required
           />
         </div>
         <div>
-          <label>Password:</label>
           <input
             type="password"
             value={auth_password}
+            placeholder='Password'
             onChange={(e) => setAuthPassword(e.target.value)}
             required
           />
         </div>
-        <button type="submit">Login</button>
+        <button className='login-button' type="submit">Login</button>
       </form>
     </div>
   );
