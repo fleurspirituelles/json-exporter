@@ -1,8 +1,8 @@
 import React, { useRef } from 'react';
 import './App.css';
-import DataSource from './components/DataSource';
-import General from './components/General';
-import Points from './components/Points';
+import DataSource from './components/Tables/DataSource';
+import General from './components/Tables/General';
+import Points from './components/Tables/Points';
 import FileHandler from './components/FileHandler';
 
 const App: React.FC = () => {
