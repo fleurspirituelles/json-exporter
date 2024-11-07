@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
-import './App.css';
+import './styles/App.css';
 import LoginPage from './pages/LoginPage';
 import DataPage from './pages/DataPage';
+import './styles/variables.css';
+import './styles/globals.css';
 
 const App: React.FC = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);

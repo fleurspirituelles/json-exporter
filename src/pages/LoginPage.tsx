@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import './LoginPage.css';
+import './styles/LoginPage.css';
 
 interface LoginPageProps {
   onLogin: (userData: { auth_user: string; auth_password: string }) => void;

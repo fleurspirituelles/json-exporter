@@ -5,6 +5,7 @@ import Points from '../components/tables/Points';
 import FileHandler from '../components/FileHandler';
 import ErrorDisplay from '../components/ErrorDisplay';
 import { validateAllData } from '../utils/ValidationUtils';
+import './styles/DataPage.css';
 
 interface DataPageProps {
   authData: { auth_user: string; auth_password: string };
