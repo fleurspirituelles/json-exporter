@@ -1,0 +1,27 @@
+.file-handler {
+  display: flex;
+  gap: 1rem;
+}
+
+.custom-import-button,
+.custom-export-button {
+  background-color: #000000;
+  color: #ffffff;
+  border: none;
+  border-radius: 4px;
+  padding: 0.8rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: 100px;
+}
+
+.custom-import-button:hover,
+.custom-export-button:hover {
+  background-color: #D9A602;
+}
+
+.custom-import-button:focus,
+.custom-export-button:focus {
+  outline: none;
+}
