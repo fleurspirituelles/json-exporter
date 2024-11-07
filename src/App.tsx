@@ -1,14 +1,20 @@
 import React, { useRef } from 'react';
 import './App.css';
-import ControllerTable from './components/ControllerTable';
+import DataSource from './components/DataSource';
+import General from './components/General';
+import Points from './components/Points';
 import FileHandler from './components/FileHandler';
 
 const App: React.FC = () => {
-  const controllerTableRef = useRef<any>(null);
+  const dataSourceRef = useRef<any>(null);
+  const generalRef = useRef<any>(null);
+  const pointsRef = useRef<any>(null);
 
   const handleExport = () => {
     const data = {
-      controllerTable: controllerTableRef.current?.getData() || []
+      General: generalRef.current?.getData() || [],
+      DataSource: dataSourceRef.current?.getData() || [],
+      Points: pointsRef.current?.getData() || []
     };
 
     const jsonString = JSON.stringify(data, null, 2);
@@ -23,15 +29,25 @@ const App: React.FC = () => {
   };
 
   const handleImport = (data: any) => {
-    if (data.controllerTable) {
-      controllerTableRef.current?.setData(data.controllerTable);
+    if (data.General) {
+      generalRef.current?.setData(data.General);
+    }
+    if (data.DataSource) {
+      dataSourceRef.current?.setData(data.DataSource);
+    }
+    if (data.Points) {
+      pointsRef.current?.setData(data.Points);
     }
   };
 
   return (
     <div className="App">
-      <h1>Lista de Controladoras</h1>
-      <ControllerTable ref={controllerTableRef} />
+      <h1>Configurações Gerais</h1>
+      <General ref={generalRef} />
+      <h1>Controladoras</h1>
+      <DataSource ref={dataSourceRef} />
+      <h1>Pontos</h1>
+      <Points ref={pointsRef} />
       <FileHandler onImport={handleImport} onExport={handleExport} />
     </div>
   );
