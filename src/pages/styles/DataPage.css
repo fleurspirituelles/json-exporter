@@ -5,12 +5,6 @@
   padding: 2rem;
 }
 
-.section-title {
-  font-size: 1.5rem;
-  margin-top: 2rem;
-  text-align: center;
-}
-
 button.export-button,
 button.import-button {
   background-color: #000000;
@@ -32,22 +26,18 @@ button.import-button {
 }
 
 .tabulator {
-  border-radius: 8px;
+  border-radius: 0.5em;
 }
 
 .tabulator .tabulator-header {
-  background-color: #1E201E;
-  font-weight: bold;
+  color: #000;
 }
 
 .tabulator .tabulator-cell {
-  background-color: #EEEEEE;
   padding: 8px;
 }
 
 .tabulator .tabulator-cell input {
-  background-color: #FFFFFF;
   border-radius: 4px;
-  color: #141736;
   padding: 5px;
 }

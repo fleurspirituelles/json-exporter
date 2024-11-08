@@ -55,7 +55,7 @@ const Points = forwardRef((props, ref) => {
       <ReactTabulator
         data={tableData}
         columns={columns}
-        layout="fitColumns"
+        layout="fitDataFill"
         options={{ resizableColumnFit: true }}
         events={{
           dataChanged: (newData: PointsData[]) => setTableData(newData),
