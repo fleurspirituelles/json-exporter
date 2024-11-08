@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import './styles/App.css';
 import LoginPage from './pages/LoginPage';
 import DataPage from './pages/DataPage';
 import './styles/variables.css';
