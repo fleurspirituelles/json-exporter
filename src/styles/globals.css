@@ -1,7 +1,7 @@
 body {
   align-items: center;
   background-color: var(--color-background);
-  color: var(--color-secondary);
+  color: var(--color-primary);
   display: flex;
   font-family: Arial, sans-serif;
   height: 100vh;
@@ -17,13 +17,4 @@ button {
   cursor: pointer;
   font-size: var(--font-size-base);
   padding: var(--button-padding);
-  transition: background-color 0.3s ease;
-}
-
-button:hover {
-  background-color: var(--color-primary-hover);
-}
-
-button:focus {
-  outline: none;
 }

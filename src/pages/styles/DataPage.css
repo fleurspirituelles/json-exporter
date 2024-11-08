@@ -21,13 +21,7 @@ button.import-button {
   font-size: 1rem;
   margin: 1rem;
   padding: 0.8rem;
-  transition: background-color 0.3s ease;
   width: 150px;
-}
-
-button.export-button:hover,
-button.import-button:hover {
-  background-color: #B68602;
 }
 
 .error-message {

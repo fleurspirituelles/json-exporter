@@ -11,17 +11,4 @@
   border-radius: 6px;
   font-size: 0.9rem;
   cursor: pointer;
-  transition: background-color 0.3s ease, transform 0.2s ease;
-}
-
-.add-row-button:hover {
-  background-color: #D9A602;
-}
-
-.add-row-button:active {
-  transform: scale(0.98);
-}
-
-.add-row-button:focus {
-  outline: none;
 }

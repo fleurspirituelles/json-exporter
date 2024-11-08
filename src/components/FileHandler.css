@@ -12,16 +12,5 @@
   padding: 0.8rem;
   font-size: 1rem;
   cursor: pointer;
-  transition: background-color 0.3s ease;
   width: 100px;
-}
-
-.custom-import-button:hover,
-.custom-export-button:hover {
-  background-color: #D9A602;
-}
-
-.custom-import-button:focus,
-.custom-export-button:focus {
-  outline: none;
 }

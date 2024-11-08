@@ -25,7 +25,6 @@ input[type="password"] {
   margin-bottom: 1rem;
   outline: none;
   padding: 0.8rem;
-  transition: all 0.3s ease;
   width: calc(100% - 0.5%);
 }
 
@@ -38,13 +37,4 @@ button {
   font-size: 1rem;
   margin-top: 1rem;
   padding: 0.8rem;
-  transition: background-color 0.3s ease;
-}
-
-button:focus {
-  outline: none;
-}
-
-button:hover {
-  background-color: #D9A602;
 }
