@@ -1,7 +1,7 @@
 import React, { useRef, useState, useEffect } from 'react';
-import DataSource from '../components/tables/DataSource';
-import General from '../components/tables/General';
-import Points from '../components/tables/Points';
+import DataSource from '../tables/DataSource';
+import General from '../tables/General';
+import Points from '../tables/Points';
 import FileHandler from '../components/FileHandler';
 import ErrorDisplay from '../components/ErrorDisplay';
 import { validateAllData } from '../utils/ValidationUtils';
