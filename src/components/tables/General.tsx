@@ -32,7 +32,7 @@ const General = forwardRef((props, ref) => {
       data={tableData}
       columns={columns}
       layout="fitColumns"
-      options={{ resizableColumnFit: true }}
+      options={{ resizableColumnFit: false }}
       events={{
         dataChanged: (newData: GeneralData[]) => setTableData(newData),
       }}

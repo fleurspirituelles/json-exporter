@@ -56,7 +56,7 @@ const Points = forwardRef((props, ref) => {
         data={tableData}
         columns={columns}
         layout="fitDataFill"
-        options={{ resizableColumnFit: true }}
+        options={{ resizableColumnFit: false }}
         events={{
           dataChanged: (newData: PointsData[]) => setTableData(newData),
         }}
